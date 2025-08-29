@@ -43,6 +43,10 @@ Disable WAI-ARIA attribute support:
 
     let g:html5_aria_attributes_complete = 0
 
+Align attributes on the first attribute (instead of the last) inside HTML tags:
+
+    let g:html5_align_on_first_attribute = 1
+
 ## Change Log
 
 ### Version 0.27

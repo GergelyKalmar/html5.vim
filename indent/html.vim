@@ -51,6 +51,10 @@ if exists("*HtmlIndent") && !exists('g:force_reload_html')
   finish
 endif
 
+if !exists('g:html5_align_on_first_attribute')
+  let g:html5_align_on_first_attribute = 0
+endif
+
 " Allow for line continuation below.
 let s:cpo_save = &cpo
 set cpo-=C
@@ -913,13 +917,16 @@ func! s:InsideTag(foundHtmlString)
     "  <tag attr=
     "  text<tag attr=
     "  <tag>text</tag>text<tag attr=
-    " For long lines search for the first match, finding the last match
-    " gets very slow.
-    if len(text) < 300
-      let idx = match(text, '.*\s\zs[_a-zA-Z0-9-]\+="')
+    let idx = -1
+    if g:html5_align_on_first_attribute == 0
+      " For long lines search for the first match, finding the last match
+      " gets very slow.
+      if len(text) < 300
+        let idx = match(text, '.*\s\zs[_a-zA-Z0-9-]\+="')
+      else
+        let idx = match(text, '\s\zs[_a-zA-Z0-9-]\+="')
+      endif
     else
-      let idx = match(text, '\s\zs[_a-zA-Z0-9-]\+="')
-    endif
     if idx == -1
       let idx = match(text, '<\w\+\(-\w\+\)*\s\zs\w')
     endif
