@@ -917,9 +917,9 @@ func! s:InsideTag(foundHtmlString)
     "  <tag attr=
     "  text<tag attr=
     "  <tag>text</tag>text<tag attr=
+    " For long lines search for the first match, finding the last match
+    " gets very slow.
     if g:html5_align_on_first_attribute == 0 && len(text) < 300
-      " For long lines search for the first match, finding the last match
-      " gets very slow.
       let idx = match(text, '.*\s\zs[_a-zA-Z0-9-]\+="')
     else
       let idx = match(text, '\s\zs[_a-zA-Z0-9-]\+="')
